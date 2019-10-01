@@ -3,7 +3,7 @@
 <html lang="en-us">
 <head>
     <meta charset="UTF-8">
-   <title>NY Times</title>
+   <title>Get your GIF on!</title>
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T">
 
@@ -16,14 +16,33 @@
 
 </head>
 <body>
+        <div class="container">
+                <h1>Movie Search</h1>
+            
+                <!-- Rendered Buttons will get Dumped Here  -->
+                <div id="buttons-view"></div>
 
-
-
-
-
-
-
-    
+                <form>
+                    <span id="search-bar">Giphy search <input id="user-search" type="text" ><input id="search-button" value="Have Fun!" type="submit"></span>
+                      </form>
+            
+                <form id="movie-form">
+                  <label for="movie-input">Add a Movie, Yo!</label>
+                  <input type="text" id="movie-input">
+                  <br>
+            
+                  <!-- Button triggers new movie to be added -->
+                  <input id="add-movie" type="submit" value="Add a Movie, Yo!">
+                </form>
+            
+                <!-- Movies will Get Dumped Here -->
+                <div id="movies-view"></div>
+    <!-- Input Form -->
+    <form>
+            <span id="search-bar">Giphy search <input id="user-search" type="text" ><input id="search-button" value="Have Fun!" type="submit"></span>
+          </form>
+       
+          <hr>
 
 </body>
 
