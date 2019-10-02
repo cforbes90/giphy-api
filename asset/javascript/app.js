@@ -44,9 +44,9 @@ function displayGifInfo() {
     for (var i = 0; i < gif.length; i++) {       
       var gifDiv = $("<div class='gif'>");
       
-      gifDiv.addClass('gif col-xs-12 col-md-4 ');
+      gifDiv.addClass('gif col-md-4 ');
       //gifDiv.attr("data-name", gif[i]);
-      gifDiv.append('<img class="gifStill" src='+gif[i].images.fixed_height_still.url + ' data-still=' + gif[i].images.fixed_height_still.url + ' data-animate=' + gif[i].images.fixed_height.url + ' data-state="still"/>');
+      gifDiv.append('<img class="gifStill" src='+gif[i].images.fixed_height_still.url + ' data-still=' + gif[i].images.fixed_height_still.url + ' data-load=' + gif[i].images.fixed_height.url + ' data-state="still"/>');
       gifDiv.append('<span class="label rated label-default">Rated: '+gif[i].rating.toUpperCase() + '</span>'+'<p></p>');
       gifDiv.append('<span class="label title label-default">Title: '+gif[i].title + '</span>'+'<p></p>');
       $("#gif-view").append(gifDiv);   
@@ -68,14 +68,14 @@ function displayGifInfo() {
   $(document).on("click", ".gif-btn", displayGifInfo);
     renderButtons();
 
-// GIF will animate if clicked
+// GIF will load if clicked
   $(document).on('click','.gifStill', function(){
     var state = $(this).data('state')
       if (state === 'still') {
-        $(this).attr('src', $(this).attr('data-animate'));
-        $(this).data('state', 'animate');
+        $(this).attr('src', $(this).attr('data-load'));
+        $(this).data('state', 'load');
       }
-      if (state === 'animate') {
+      if (state === 'load') {
         $(this).attr('src', $(this).attr('data-still'));
         $(this).data('state', 'still');
       }
