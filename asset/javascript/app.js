@@ -3,7 +3,7 @@
 
 var gif="";
  
-var topics =["Joy","Excitement","Surprise","Sadness","Anger","Disgust","Contempt","Fear"]
+var topics =["Joy","Excitement","Surprise","Sadness","Anger","Disgust","Contempt","Fear"];
 
   // displaygifInfo function re-renders the HTML to display the appropriate content
 function displayGifInfo() {
@@ -17,10 +17,10 @@ function displayGifInfo() {
     url: queryURL,
     method: "GET"
     }).then(function(response) {
-      console.log(response.data.url);
+      //console.log(response.data.url);
       gif=response.data;
-      console.log(gif);
-      populateGif();       
+      //console.log(gif);
+      populateGif();      
     });
 
   }
