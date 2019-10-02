@@ -3,15 +3,13 @@
 <head>
     <meta charset="UTF-8">
    <title>Get your GIF on!</title>
-   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T">
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"></script> -->
+   
 
-   <link rel="stylesheet" type="text/css" href= "asset/css/style.css">
+   <!-- <link rel="stylesheet" type="text/css" href= "asset/css/style.css"> -->
 
 </head>
 <body>
@@ -33,13 +31,14 @@
                 <!-- gifs will Get Dumped Here -->
                 <div id="gifs-view"></div>
     <!-- Input Form -->
-    <form>
+    <!-- <form>
             <span id="search-bar">Giphy search <input id="user-search" type="text" ><input id="search-button" value="Have Fun!" type="submit"></span>
-          </form>
+          </form> -->
        
           <hr>
 
 
+   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
       // Initial array of gifs
@@ -47,9 +46,10 @@
       var topics =["Joy","Excitement","Surprise","Sadness","Anger","Disgust","Contempt","Fear"]
 
       // displaygifInfo function re-renders the HTML to display the appropriate content
-      function displaygifInfo() {
+      function displayGifInfo() {
 
         var gif = $(this).attr("data-name");
+        console.log( gif);
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + gif + "&api_key=ttW7fYuN6GCKvPWa0Vn5T0Lox99zjQT2&limit=10";
 
        // $.get("http://api.giphy.com/v1/gifs/search?q=ryan+gosling&api_key=YOUR_API_KEY&limit=5");//
@@ -58,46 +58,46 @@
         $.ajax({
           url: queryURL,
           method: "GET"
-        }).then(function(response) {
-          console.log("this is response" + response);
+        }).then(function(data) {
+          console.log(data);
           // Creating a div to hold the gif
           var gifDiv = $("<div class='gif'>");
 
           // Storing the rating data
-          var rating = response.Rated;
+          //var rating = response.Rated;
 
           // Creating an element to have the rating displayed
-          var pOne = $("<p>").text("Rating: " + rating);
+          //var pOne = $("<p>").text("Rating: " + rating);
 
           // Displaying the rating
-          gifDiv.append(pOne);
+          //gifDiv.append(pOne);
 
           // Storing the release year
-          var released = response.Released;
+         // var released = response.Released;
 
           // Creating an element to hold the release year
-          var pTwo = $("<p>").text("Released: " + released);
+          //var pTwo = $("<p>").text("Released: " + released);
 
           // Displaying the release year
-          gifDiv.append(pTwo);
+         // gifDiv.append(pTwo);
 
           // Storing the plot
-          var plot = response.Plot;
+          //var plot = response.Plot;
 
           // Creating an element to hold the plot
-          var pThree = $("<p>").text("Plot: " + plot);
+         // var pThree = $("<p>").text("Plot: " + plot);
 
           // Appending the plot
           gifDiv.append(pThree);
 
           // Retrieving the URL for the image
-          var imgURL = response.Poster;
+          //var imgURL = response.Poster;
 
           // Creating an element to hold the image
-          var image = $("<img>").attr("src", imgURL);
+          //var image = $("<img>").attr("src", imgURL);
 
           // Appending the image
-          gifDiv.append(image);
+          //gifDiv.append(image);
 
           // Putting the entire gif above the previous gifs
           $("#gifs-view").prepend(gifDiv);
@@ -128,6 +128,57 @@
           $("#buttons-view").append(a);
         }
       }
+      function populateGif() {
+        // Looping through the array of gifs from Response
+        for (var i = 0; i < datalength; i++) {
+
+          // Then dynamicaly generating buttons for each movie in the array
+          // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
+          var b = $("<div>");
+          // Adding a class of movie-btn to our button
+          b.addClass("gif-btn");
+          // Adding a data-attribute
+          b.attr("data-name", topics[i]);
+          // Providing the initial button text
+          //b.text(topics[i]);
+          var gifUrl = data.data.response[i].url;
+          var image =$("<img>").attr("src", gifUrl);
+          // Adding the button to the buttons-view div
+          $("#gif-view").append(image);
+        }
+
+        
+
+      }
+      
+      apiRequest: function(searchQuery) {
+        // Encode query string for spaces and special characters
+        var encodedQuery = encodeURIComponent(searchQuery);
+        // fetch 25 gifs based on search string
+        var queryUrl = `https://api.giphy.com/v1/gifs/search?api_key=psbvNW4hbQGb5pxrjJ1nxEpppgE9jFT4&q=${searchQuery}&limit=25&offset=0&lang=en`;
+        $.ajax({url: queryUrl, method: "GET"}).done(function(data){
+            app.displayGifs(data.data);
+        });
+    },
+
+
+
+
+displayGifs: function (data) {
+
+// clear out any previous searches
+    var gifContainer = $(".gifs").empty();
+// hide while loading gifs
+    gifContainer.hide();
+    for(var i = 0; i < data.length; i++) {
+        var gifDiv = $("<div>").addClass("gif-div");
+        gifDiv.append($("<img/>",{src: data[i].images.fixed_width_still.url, class: "gif"}));
+        gifDiv.append($("<p>").text(`Rating: ${data[i].rating.toUpperCase()}`))
+        gifContainer.append(gifDiv);
+    }
+    gifContainer.show();
+}
+
 
       // This function handles events where a movie button is clicked
       $("#add-gif").on("click", function(event) {
@@ -148,6 +199,7 @@
       // Calling the renderButtons function to display the intial buttons
       renderButtons();
     </script>
+     
   </div>
 </body>
 
