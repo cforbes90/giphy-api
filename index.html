@@ -14,18 +14,18 @@
 </head>
 <body>
         <div class="container">
-                <h1>GIF Search</h1>
+                <h1>GIF and Take</h1>
 
                 <!-- Rendered Buttons will get Dumped Here  -->
                 <div id="buttons-view"></div>
             
                 <form id="gif-form">
-                  <label for="gif-input">Add a gif, Yo!</label>
+                  <label for="gif-input">GIF for IT!</label>
                   <input type="text" id="gif-input">
                   <br>
             
                   <!-- Button triggers new gif to be added -->
-                  <input id="add-gif" type="submit" value="Add a gif, Yo!">
+                  <input id="add-gif" type="submit" value="GIF-ETH!!">
                 </form>
             
                 <!-- gifs will Get Dumped Here -->
@@ -43,8 +43,7 @@
     <script type="text/javascript">
 
     var gif="";
-      // Initial array of gifs
-      //var gifs = ["The Matrix", "The Notebook", "Mr. Nobody", "The Lion King"];
+     
       var topics =["Joy","Excitement","Surprise","Sadness","Anger","Disgust","Contempt","Fear"]
 
       // displaygifInfo function re-renders the HTML to display the appropriate content
@@ -55,9 +54,7 @@
         //console.log("query is " + query);
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + query + "&api_key=ttW7fYuN6GCKvPWa0Vn5T0Lox99zjQT2&limit=10";
 
-       // $.get("http://api.giphy.com/v1/gifs/search?q=ryan+gosling&api_key=YOUR_API_KEY&limit=5");//
-// add maino and murphy lee to spotify
-        // Creating an AJAX call for the specific gif button being clicked
+  
         $.ajax({
           url: queryURL,
           method: "GET"
@@ -65,50 +62,7 @@
           console.log(response.data.url);
           gif=response.data;
           console.log(gif);
-          populateGif();
-          
-        //   console.log("This is gif length in populate loop"+gif.length);
-          // Creating a div to hold the gif
-          
-
-          // Storing the rating data
-          //var rating = response.Rated;
-
-          // Creating an element to have the rating displayed
-          //var pOne = $("<p>").text("Rating: " + rating);
-
-          // Displaying the rating
-          //gifDiv.append(pOne);
-
-          // Storing the release year
-         // var released = response.Released;
-
-          // Creating an element to hold the release year
-          //var pTwo = $("<p>").text("Released: " + released);
-
-          // Displaying the release year
-         // gifDiv.append(pTwo);
-
-          // Storing the plot
-          //var plot = response.Plot;
-
-          // Creating an element to hold the plot
-         // var pThree = $("<p>").text("Plot: " + plot);
-
-          // Appending the plot
-          //gifDiv.append(pThree);
-
-          // Retrieving the URL for the image
-          //var imgURL = response.Poster;
-
-          // Creating an element to hold the image
-          //var image = $("<img>").attr("src", imgURL);
-
-          // Appending the image
-          //gifDiv.append(image);
-
-          // Putting the entire gif above the previous gifs
-         
+          populateGif();       
         });
 
       }
@@ -132,9 +86,8 @@
         for (var i = 0; i < gif.length; i++) {
             
             var gifDiv = $("<div class='gif'>");
-             gifDiv.addClass('gif col-md-4 col-xs-12 col-sm-4');
+             gifDiv.addClass('gif col-xs-12 col-md-4 ');
              gifDiv.attr("data-name", gif[i]);
-        
              gifDiv.append('<img class="gifStill" src='+gif[i].images.fixed_height_still.url + ' data-still=' + gif[i].images.fixed_height_still.url + ' data-animate=' + gif[i].images.fixed_height.url + ' data-state="still"/>');
         
              gifDiv.append('<span class="label label-default">Rated: '+gif[i].rating + '</span>');
@@ -142,20 +95,7 @@
         
         }
       };
-// displayGifs: function (data) {
 
-// // clear out any previous searches
-//     var gifContainer = $(".gifs").empty();
-// // hide while loading gifs
-//     gifContainer.hide();
-//     for(var i = 0; i < data.length; i++) {
-//         var gifDiv = $("<div>").addClass("gif-div");
-//         gifDiv.append($("<img/>",{src: data[i].images.fixed_width_still.url, class: "gif"}));
-//         gifDiv.append($("<p>").text(`Rating: ${data[i].rating.toUpperCase()}`))
-//         gifContainer.append(gifDiv);
-//     }
-//     gifContainer.show();
-// }
 
 
       // This function handles events where a movie button is clicked
@@ -175,12 +115,11 @@
       // Adding a click event listener to all elements with a class of "movie-btn"
       $(document).on("click", ".gif-btn", displayGifInfo);
 
-      // Calling the renderButtons function to display the intial buttons
       renderButtons();
 
-       // Adding click event listeners to all elements with a class of "movie"
+    
 
-// When gif is clicked it'll toggle between animated and still
+// GIF will animate if clicked
 
     $(document).on('click','.gifStill', function(){
         var state = $(this).data('state')
