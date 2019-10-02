@@ -14,8 +14,12 @@
 </head>
 <body>
         <div class="container">
+            <div class ="row">
+                <div class="col-12">
                 <h1>GIF and Take</h1>
+            </div>
 
+            </div>
                 <!-- Rendered Buttons will get Dumped Here  -->
                 <div id="buttons-view"></div>
             
@@ -52,7 +56,7 @@
 
         var query = $(this).attr("data-name");
         //console.log("query is " + query);
-        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + query + "&api_key=ttW7fYuN6GCKvPWa0Vn5T0Lox99zjQT2&limit=10";
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + query + "&api_key=ttW7fYuN6GCKvPWa0Vn5T0Lox99zjQT2&limit=10&rating=pg-13";
 
   
         $.ajax({
@@ -90,7 +94,7 @@
              gifDiv.attr("data-name", gif[i]);
              gifDiv.append('<img class="gifStill" src='+gif[i].images.fixed_height_still.url + ' data-still=' + gif[i].images.fixed_height_still.url + ' data-animate=' + gif[i].images.fixed_height.url + ' data-state="still"/>');
         
-             gifDiv.append('<span class="label label-default">Rated: '+gif[i].rating + '</span>');
+             gifDiv.append('<span class="label label-default">Rated: '+gif[i].rating.toUpperCase() + '</span>');
              $("#gif-view").append(gifDiv);
         
         }
@@ -110,6 +114,7 @@
 
         // Calling renderButtons which handles the processing of our movie array
         renderButtons();
+        displayGifInfo();
       });
 
       // Adding a click event listener to all elements with a class of "movie-btn"
@@ -117,7 +122,6 @@
 
       renderButtons();
 
-    
 
 // GIF will animate if clicked
 
