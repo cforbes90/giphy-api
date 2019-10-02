@@ -52,7 +52,7 @@
           $("#gif-view").empty();
 
         var query = $(this).attr("data-name");
-        console.log("query is " + query);
+        //console.log("query is " + query);
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + query + "&api_key=ttW7fYuN6GCKvPWa0Vn5T0Lox99zjQT2&limit=10";
 
        // $.get("http://api.giphy.com/v1/gifs/search?q=ryan+gosling&api_key=YOUR_API_KEY&limit=5");//
@@ -108,7 +108,7 @@
           //gifDiv.append(image);
 
           // Putting the entire gif above the previous gifs
-          $("#gifs-view").prepend(gifDiv);
+         
         });
 
       }
@@ -119,62 +119,29 @@
    // Looping through the array of movies
         for (var i = 0; i < topics.length; i++) {
           var a = $("<button>");
-          // Adding a class of movie-btn to our button
           a.addClass("gif-btn");
-          // Adding a data-attribute
           a.attr("data-name", topics[i]);
-        
-          // Providing the initial button text
           a.append(topics[i]);
-          // Adding the button to the buttons-view div
           $("#buttons-view").append(a);
         }
       }
 
       function populateGif() {
+        $("#gif-view").empty();
         // Looping through the array of gifs from Response
         for (var i = 0; i < gif.length; i++) {
-            console.log("This is gif length in populate loop"+gif.length);
+            
             var gifDiv = $("<div class='gif'>");
              gifDiv.addClass('gif col-md-4 col-xs-12 col-sm-4');
              gifDiv.attr("data-name", gif[i]);
         
-             gifDiv.append('<img class="gifImg" src='+gif[i].images.fixed_height_still.url + ' data-still=' + gif[i].images.fixed_height_still.url + ' data-animate=' + gif[i].images.fixed_height.url + ' data-state="still"/>');
+             gifDiv.append('<img class="gifStill" src='+gif[i].images.fixed_height_still.url + ' data-still=' + gif[i].images.fixed_height_still.url + ' data-animate=' + gif[i].images.fixed_height.url + ' data-state="still"/>');
         
              gifDiv.append('<span class="label label-default">Rated: '+gif[i].rating + '</span>');
              $("#gif-view").append(gifDiv);
-          // Then dynamicaly generating buttons for each movie in the array
-        //   // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
-        //   var b = $("<div>");
-        //   // Adding a class of movie-btn to our button
-        //   b.addClass("gif-btn");
-        //   // Adding a data-attribute
-        //   b.attr("data-name", topics[i]);
-        //   // Providing the initial button text
-        //   //b.text(topics[i]);
-        //   var gifUrl = data.data.response[i].url;
-        //   var image =$("<img>").attr("src", gifUrl);
-        //   // Adding the button to the buttons-view div
-        //   $("#gif-view").append(image);
-        }
-
         
-
+        }
       };
-      
-    //   apiRequest: function(searchQuery) {
-    //     // Encode query string for spaces and special characters
-    //     var encodedQuery = encodeURIComponent(searchQuery);
-    //     // fetch 25 gifs based on search string
-    //     var queryUrl = `https://api.giphy.com/v1/gifs/search?api_key=psbvNW4hbQGb5pxrjJ1nxEpppgE9jFT4&q=${searchQuery}&limit=25&offset=0&lang=en`;
-    //     $.ajax({url: queryUrl, method: "GET"}).done(function(data){
-    //         app.displayGifs(data.data);
-    // //     });
-    // },
-
-
-
-
 // displayGifs: function (data) {
 
 // // clear out any previous searches
@@ -196,6 +163,7 @@
         event.preventDefault();
         // This line grabs the input from the textbox
         var gifTopic = $("#gif-input").val().trim();
+        console.log("this is gifTopic " + gifTopic);
 
         // Adding gif category from the textbox to our array
         topics.push(gifTopic);
@@ -209,6 +177,26 @@
 
       // Calling the renderButtons function to display the intial buttons
       renderButtons();
+
+       // Adding click event listeners to all elements with a class of "movie"
+
+// When gif is clicked it'll toggle between animated and still
+
+    $(document).on('click','.gifStill', function(){
+        var state = $(this).data('state')
+            if (state === 'still') {
+                $(this).attr('src', $(this).attr('data-animate'));
+                $(this).data('state', 'animate');
+             }
+            if (state === 'animate') {
+                 $(this).attr('src', $(this).attr('data-still'));
+                $(this).data('state', 'still');
+             }
+});
+
+
+
+
 
       
     </script>
